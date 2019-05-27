@@ -44,8 +44,12 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
-
+        this.bird = new MyBird(this, 0, 10, 3, 0);
+        this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
+        
         //Objects connected to MyInterface
+        this.scaleFactor=1.0;
+        this.speedFactor=1.0;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -63,6 +67,8 @@ class MyScene extends CGFscene {
         this.setShininess(10.0);
     }
     update(t){
+        if(t>0)
+            this.bird.update();
 
     }
 
@@ -101,9 +107,19 @@ class MyScene extends CGFscene {
 
 
         this.pushMatrix();
-        this.scale(4,4,4);
+        this.scale(1.4,1.4,1.4);
         this.house.display();
         this.popMatrix();
+
+        this.pushMatrix();
+        this.bird.display();
+        this.popMatrix();
+        
+        // this.pushMatrix();
+        // this.scale(3,3,3);
+        // this.translate(0,0.5,0);
+        // this.cube.display();
+        // this.popMatrix();
         // ---- END Primitive drawing section
     }
 }
