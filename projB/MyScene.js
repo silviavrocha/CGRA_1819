@@ -47,7 +47,7 @@ class MyScene extends CGFscene {
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 10, 3, 0);
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
-        
+        this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
 
         //Objects connected to MyInterface
@@ -131,7 +131,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(0.5,0.5,0.5);
-        this.scale(100,100,100);
+        this.scale(60,60,60);
         this.translate(0,0.485,0);
         this.cubeMapMaterial.apply();
         this.cubeMap.display();
@@ -151,6 +151,10 @@ class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
         
+        this.pushMatrix();
+        this.rotate(-Math.PI/2, 1,0,0);
+        this.terrain.display();
+        this.popMatrix();
         // this.pushMatrix();
         // this.scale(3,3,3);
         // this.translate(0,0.5,0);
