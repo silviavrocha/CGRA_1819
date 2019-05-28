@@ -19,7 +19,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
-        this.setUpdatePeriod(50);
+        this.setUpdatePeriod(60);
 
         //Initialize materials
 
@@ -40,6 +40,7 @@ class MyScene extends CGFscene {
         this.wallMaterials.setTextureWrap('REPEAT', 'REPEAT');
 
         //Initialize scene objects
+        this.oldt = 0;
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
         this.plane = new Plane(this, 32);
@@ -47,6 +48,8 @@ class MyScene extends CGFscene {
         this.bird = new MyBird(this, 0, 10, 3, 0);
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
         
+        this.prism = new MyPrism(this,10,20);
+
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
@@ -66,10 +69,39 @@ class MyScene extends CGFscene {
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
+    checkKeys()  {
+        var text="Keys pressed: ";
+        var keysPressed=false;
+        // Check for key codes e.g. in ​https://keycode.info/
+        if (this.gui.isKeyPressed("KeyW"))
+         {
+             text+=" W ";
+             keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyS"))
+        {
+            text+=" S ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyA"))
+        {
+            text+=" A ";
+            keysPressed=true;
+        }
+        if (this.gui.isKeyPressed("KeyD"))
+        {
+            text+=" D ";
+            keysPressed=true;
+        }
+        if (keysPressed)
+        console.log(text); 
+     }
     update(t){
         if(t>0)
             this.bird.update();
 
+        this.checkKeys();
     }
 
     display() {
@@ -105,6 +137,10 @@ class MyScene extends CGFscene {
         this.cubeMap.display();
         this.popMatrix();
 
+        /*this.pushMatrix();
+        this.translate(0,10,0);
+        this.prism.display();
+        this.popMatrix();*/
 
         this.pushMatrix();
         this.scale(1.4,1.4,1.4);
