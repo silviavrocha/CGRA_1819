@@ -40,20 +40,22 @@ class MyScene extends CGFscene {
         this.wallMaterials.setTextureWrap('REPEAT', 'REPEAT');
 
         //Initialize scene objects
-        this.oldt = 0;
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this, 0, 10, 3, 0);
+        this.bird = new MyBird(this, 0, 10, 3, 0, 0);
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
+
+        var oldt = 0;
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
     }
+    
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
         this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
@@ -76,21 +78,25 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in ​https://keycode.info/
         if (this.gui.isKeyPressed("KeyW"))
          {
+             this.bird.accelerate(3);
              text+=" W ";
              keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
+            this.bird.accelerate(-3);
             text+=" S ";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
+            this.bird.turn(-5);
             text+=" A ";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyD"))
         {
+             this.bird.turn(5);
             text+=" D ";
             keysPressed=true;
         }
@@ -99,9 +105,15 @@ class MyScene extends CGFscene {
      }
     update(t){
         if(t>0)
-            this.bird.update();
+        {
+            this.checkKeys();
 
-        this.checkKeys();
+            this.bird.update();
+        }
+
+        
+            //this.oldt = t;
+
     }
 
     display() {

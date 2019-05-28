@@ -34,8 +34,11 @@ class MyBird extends CGFobject {
 	
 	display()
 	{
-		this.scene.rotate(this.ang, 0, 1,0);
+		this.scene.translate(-this.coordX, -this.coordY, -this.coordZ);
+		this.scene.rotate(this.ang*(Math.PI/180), 0, 1, 0);
 		this.scene.translate(this.coordX, this.coordY, this.coordZ);
+
+		this.scene.translate(this.coordX, this.coordY, this.coordZ+(0.1*this.velocity));
 
 		this.scene.pushMatrix();
 		this.scene.translate(0,1,0);
@@ -102,10 +105,19 @@ class MyBird extends CGFobject {
 		this.scene.popMatrix();
 	}
 
+	turn(w)
+	{
+		this.ang += w;
+	}
+
+	accelerate(v)
+	{
+		this.velocity += v;
+	}
 	update()
 	{
 		var offset1=0.0;
-		offset1=1/100;
+		offset1=1/30;
 		if(this.numUpdatesUp==100)
 		{
 			this.numUpdatesUp=0;
