@@ -26,10 +26,12 @@ class MyBird extends CGFobject {
 		this.velocity=vel;
 		this.numUpdatesUp=1;
 		this.numUpdatesDown=0;
+		this.drawBranch=false;
 		this.cube = new MyUnitCubeQuad(scene, this.blueMaterial);
 		this.pyramid = new MyPyramid(scene, 4, 1);
 		this.quad= new MyQuad(scene);
 		this.triangle = new MyTriangle(scene);
+		this.branch= new MyTreeBranch(scene,5, 5);
 	}
 	
 	display()
@@ -79,7 +81,6 @@ class MyBird extends CGFobject {
 
 		this.scene.pushMatrix();
 		this.scene.rotate(-Math.PI/2,1,0,0);
-		// this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.4,0.5,1);
 		this.scene.translate(2,2.4,0.5);
 		this.triangle.display();
@@ -100,6 +101,14 @@ class MyBird extends CGFobject {
 
 		this.triangle.display();
 		this.scene.popMatrix();
+
+		if(this.drawBranch){
+			this.scene.pushMatrix();
+			this.scene.rotate(Math.PI/2, 0,1,0);
+			this.scene.translate(-6,1,-5.5);
+			this.branch.display();
+			this.scene.popMatrix();
+		}
 	}
 
 	turn(w, speedFactor)
@@ -118,6 +127,35 @@ class MyBird extends CGFobject {
 			this.velocity *= v * speedFactor;
 		else
 			this.velocity=0.01;
+	}
+
+	goDown(delta){
+		this.velocity=0;
+		this.coordY-=(delta/100000);	
+	}
+
+	checkBranch(branches, nest){
+		if(!this.drawBranch){
+			for(var i=0; i < branches.length; i++){
+			
+				console.log(branches[i].coordX-this.coordX);
+				console.log(branches[i].coordZ-this.coordZ);
+					if(Math.abs(branches[i].coordX-this.coordX)< 7 && Math.abs(branches[i].coordZ-this.coordZ)<7)
+					{
+						branches.splice(i,1);
+						this.drawBranch=true;
+						break;
+					}
+			}
+		}
+		else{
+			if(Math.abs(nest.coordX-this.coordX)< 2 && Math.abs(nest.coordZ-this.coordZ)<2)
+			{
+				console.log("yeyyyyyyyyyyyyyy");
+				this.drawBranch=false;
+				nest.drawBranches();
+			}
+		}			
 	}
 
 	update()

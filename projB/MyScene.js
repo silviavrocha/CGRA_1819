@@ -48,18 +48,20 @@ class MyScene extends CGFscene {
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
-        this.nest = new MyNest(this);
         this.branches=[];
         for(var i=0; i< 5; i++)
         {
             this.branches[i]= new MyTreeBranch(this, Math.random()*5, Math.random()*5);
         }
         
+        this.nest = new MyNest(this);
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
 
+        this.goDown=false;
+        this.goUp=true;
     }
     
     initLights() {
@@ -69,7 +71,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(10, 5, 2));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -105,7 +107,7 @@ class MyScene extends CGFscene {
         }
         if(this.gui.isKeyPressed("KeyP"))
         {
-            
+            this.goDown=true;
         }
      }
 
@@ -114,13 +116,31 @@ class MyScene extends CGFscene {
             this.oldtime=t;
         
         var delta = t - this.oldtime;
+
+        
         this.bird.updatePosition(delta);
-        if(t>0)
+        if(this.goDown)
+        {
+            this.bird.goDown(delta);
+            if(this.bird.coordY<=0)
+            {
+                this.goDown=false;
+                this.bird.checkBranch(this.branches, this.nest);
+                this.goUp=true;
+            }
+        }
+        else if(this.goUp){
+            this.bird.goDown(-delta);
+            if(this.bird.coordY>=3)
+            this.goUp=false;
+        }
+        else
         {
             this.checkKeys(t);
-
             this.bird.update();
         }
+
+       
     }
 
     display() {
