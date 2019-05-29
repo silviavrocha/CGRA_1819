@@ -34,11 +34,8 @@ class MyBird extends CGFobject {
 	
 	display()
 	{
-		this.scene.translate(-this.coordX, -this.coordY, -this.coordZ);
-		this.scene.rotate(this.ang*(Math.PI/180), 0, 1, 0);
 		this.scene.translate(this.coordX, this.coordY, this.coordZ);
-
-		this.scene.translate(this.coordX, this.coordY, this.coordZ+(0.1*this.velocity));
+		this.scene.rotate(this.ang, 0, 1, 0);
 
 		this.scene.pushMatrix();
 		this.scene.translate(0,1,0);
@@ -110,9 +107,17 @@ class MyBird extends CGFobject {
 		this.ang += w;
 	}
 
+	updatePosition(delta){
+		var distance =this.velocity*(delta/1000);
+		this.coordX+=distance*Math.sin(this.ang);
+		this.coordZ+=(distance)*Math.cos(this.ang);
+	}
 	accelerate(v)
 	{
-		this.velocity += v;
+		if(this.velocity!=0)	
+			this.velocity *= v;
+		else
+			this.velocity=0.01;
 	}
 	update()
 	{

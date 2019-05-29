@@ -49,11 +49,14 @@ class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
 
-        var oldt = 0;
+        
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
+
+  //      this.oldtime=0;
+
     }
     
     initLights() {
@@ -75,45 +78,47 @@ class MyScene extends CGFscene {
     checkKeys()  {
         var text="Keys pressed: ";
         var keysPressed=false;
-        // Check for key codes e.g. in ​https://keycode.info/
+
         if (this.gui.isKeyPressed("KeyW"))
          {
-             this.bird.accelerate(3);
+             this.bird.accelerate(2);
              text+=" W ";
              keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.bird.accelerate(-3);
+            this.bird.accelerate(0.5);
             text+=" S ";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
-            this.bird.turn(-5);
+            this.bird.turn(-0.2);
             text+=" A ";
             keysPressed=true;
         }
         if (this.gui.isKeyPressed("KeyD"))
         {
-             this.bird.turn(5);
+             this.bird.turn(0.2);
             text+=" D ";
             keysPressed=true;
         }
         if (keysPressed)
         console.log(text); 
      }
+
     update(t){
+        if(this.oldtime==undefined)
+            this.oldtime=t;
+
+        var delta = t - this.oldtime;
+        this.bird.updatePosition(delta);
         if(t>0)
         {
-            this.checkKeys();
+            this.checkKeys(t);
 
             this.bird.update();
         }
-
-        
-            //this.oldt = t;
-
     }
 
     display() {
