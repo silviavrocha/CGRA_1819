@@ -48,14 +48,17 @@ class MyScene extends CGFscene {
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
-
+        this.nest = new MyNest(this);
+        this.branches=[];
+        for(var i=0; i< 5; i++)
+        {
+            this.branches[i]= new MyTreeBranch(this, Math.random()*5, Math.random()*5);
+        }
         
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
-
-  //      this.oldtime=0;
 
     }
     
@@ -81,32 +84,35 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyW"))
          {
-             this.bird.accelerate(2);
+             this.bird.accelerate(2, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.bird.accelerate(0.5);
+            this.bird.accelerate(0.5, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
-            this.bird.turn(-0.2);
+            this.bird.turn(-0.2, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyD"))
         {
-             this.bird.turn(0.2);
+             this.bird.turn(0.2, this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyR"))
         {
              this.bird = new MyBird(this, 0, 10, 3, 0, 0);
         }
-
+        if(this.gui.isKeyPressed("KeyP"))
+        {
+            
+        }
      }
 
     update(t){
         if(this.oldtime==undefined)
             this.oldtime=t;
-
+        
         var delta = t - this.oldtime;
         this.bird.updatePosition(delta);
         if(t>0)
@@ -136,9 +142,10 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.pushMatrix();
         this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(100, 100, 1);
+        this.scale(60, 60, 1);
         this.plane.display();
         this.popMatrix();
 
@@ -150,11 +157,6 @@ class MyScene extends CGFscene {
         this.cubeMap.display();
         this.popMatrix();
 
-        /*this.pushMatrix();
-        this.translate(0,10,0);
-        this.prism.display();
-        this.popMatrix();*/
-
         this.pushMatrix();
         this.scale(1.4,1.4,1.4);
         this.house.display();
@@ -164,15 +166,15 @@ class MyScene extends CGFscene {
         this.bird.display();
         this.popMatrix();
         
-        this.pushMatrix();
-        this.rotate(-Math.PI/2, 1,0,0);
-        this.terrain.display();
-        this.popMatrix();
         // this.pushMatrix();
-        // this.scale(3,3,3);
-        // this.translate(0,0.5,0);
-        // this.cube.display();
+        // this.rotate(-Math.PI/2, 1,0,0);
+        // this.terrain.display();
         // this.popMatrix();
+    
+        this.nest.display(); 
+
+        for(var i=0; i<this.branches.length; i++)
+            this.branches[i].display();
         // ---- END Primitive drawing section
     }
 }

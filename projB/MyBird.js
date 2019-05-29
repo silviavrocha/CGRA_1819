@@ -102,9 +102,9 @@ class MyBird extends CGFobject {
 		this.scene.popMatrix();
 	}
 
-	turn(w)
+	turn(w, speedFactor)
 	{
-		this.ang += w;
+		this.ang += speedFactor*w;
 	}
 
 	updatePosition(delta){
@@ -112,10 +112,10 @@ class MyBird extends CGFobject {
 		this.coordX+=distance*Math.sin(this.ang);
 		this.coordZ+=(distance)*Math.cos(this.ang);
 	}
-	accelerate(v)
+	accelerate(v, speedFactor)
 	{
 		if(this.velocity!=0)	
-			this.velocity *= v;
+			this.velocity *= v * speedFactor;
 		else
 			this.velocity=0.01;
 	}
