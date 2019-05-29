@@ -119,6 +119,7 @@ class MyBird extends CGFobject {
 		else
 			this.velocity=0.01;
 	}
+
 	update()
 	{
 		var offset1=0.0;
