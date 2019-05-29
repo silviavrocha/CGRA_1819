@@ -55,6 +55,7 @@ class MyScene extends CGFscene {
         }
         
         this.nest = new MyNest(this);
+        this.tree = new MyLSPlant(this);
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
@@ -82,11 +83,22 @@ class MyScene extends CGFscene {
                 this.axiom,
                 {
                     "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX", "FF[-F]+X[-XF]FF"]
+                    "X": ["F[-X][X]F[-X]+FX", "[-F]+X[-XF]XX"]
                 },
                 this.angle,
                 this.iterations,
                 this.scaleF
+            );
+    
+            this.tree.generate(
+                "X",
+                {
+                    "F": ["FF"],
+                    "X": [" F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+                },
+                30,
+                6,
+                0.6
             );
         }
 
@@ -176,11 +188,12 @@ class MyScene extends CGFscene {
         if(this.drawLightning)
         {
             this.lightning.update(delta);
-            if(this.lightning.axiom.length<=this.lightning.depth)
+            if(this.lightning.axiom.length<=this.lightning.depth){
                 this.drawLightning=false;
-        }
-
-       
+                this.lightning.startingTime=undefined;
+                this.lightning.depth=0;
+            }
+        }  
     }
 
     display() {
@@ -242,11 +255,42 @@ class MyScene extends CGFscene {
         if(this.drawLightning)
         {
             this.pushMatrix();
+            this.rotate(-Math.PI, 0,0,1);
+            this.translate(0,-35,0);
             this.yellowMaterial.apply();
             this.lightning.display();
             this.popMatrix();
         }
        
+        this.pushMatrix();
+        this.translate(-9,0,-7);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-9,0,-10);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-9,0,-13);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-15,0,-7);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-15,0,-10);
+        this.tree.display();
+        this.popMatrix();
+
+        this.pushMatrix();
+        this.translate(-15,0,-13);
+        this.tree.display();
+        this.popMatrix();
         // ---- END Primitive drawing section
     }
 }

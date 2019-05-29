@@ -131,9 +131,6 @@ class MyBird extends CGFobject {
 	checkBranch(branches, nest){
 		if(!this.drawBranch){
 			for(var i=0; i < branches.length; i++){
-			
-				console.log(branches[i].coordX-this.coordX);
-				console.log(branches[i].coordZ-this.coordZ);
 					if(Math.abs(branches[i].coordX-this.coordX)< 7 && Math.abs(branches[i].coordZ-this.coordZ)<7)
 					{
 						branches.splice(i,1);
@@ -145,7 +142,6 @@ class MyBird extends CGFobject {
 		else{
 			if(Math.abs(nest.coordX-this.coordX)< 2 && Math.abs(nest.coordZ-this.coordZ)<2)
 			{
-				console.log("yeyyyyyyyyyyyyyy");
 				this.drawBranch=false;
 				nest.drawBranches();
 			}
@@ -160,7 +156,6 @@ class MyBird extends CGFobject {
 		{
 			this.numUpdatesUp=0;
 			this.numUpdatesDown=1;
-			console.log(this.numUpdatesUp);
 			this.coordY+=(-offset1);
 		}
 		else if(this.numUpdatesUp!=0)
