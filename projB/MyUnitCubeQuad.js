@@ -6,7 +6,7 @@
 class MyUnitCubeQuad extends CGFobject {
 	constructor(scene, material) {
 		super(scene);
-		this.quad = new MyQuad(scene);
+		this.quad = new MyQuad(scene,1);
 		this.texture= material;
 
 	}

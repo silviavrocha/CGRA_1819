@@ -12,7 +12,7 @@ class MyHouse extends CGFobject {
 		this.column2 = new MyPrism(scene, 8, 8);
 		this.column3 = new MyPrism(scene, 8, 8);
 		this.column4 = new MyPrism(scene, 8, 8);
-		this.door =new MyQuad(scene);
+		this.door =new MyQuad(scene,1);
 
 		this.doorMaterial = new CGFappearance(this.scene);
         this.doorMaterial.setAmbient(0.3, 0.3, 0.3, 1);

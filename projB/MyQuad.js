@@ -4,8 +4,9 @@
  * @param scene - Reference to MyScene object
  */
 class MyQuad extends CGFobject {
-	constructor(scene, coords) {
+	constructor(scene, scale, coords) {
 		super(scene);
+		this.scale=scale;
 		this.initBuffers();
 		if (coords != undefined)
 			this.updateTexCoords(coords);
@@ -13,10 +14,10 @@ class MyQuad extends CGFobject {
 	
 	initBuffers() {
 		this.vertices = [
-			-0.5, -0.5, 0,	//0
-			0.5, -0.5, 0,	//1
-			-0.5, 0.5, 0,	//2
-			0.5, 0.5, 0		//3
+			-0.5*this.scale, -0.5, 0,	//0
+			0.5*this.scale, -0.5, 0,	//1
+			-0.5*this.scale, 0.5, 0,	//2
+			0.5*this.scale, 0.5, 0		//3
 		];
 
 		//Counter-clockwise reference of vertices

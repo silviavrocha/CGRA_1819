@@ -8,16 +8,10 @@ class MyBird extends CGFobject {
 		super(scene);
 		
         this.blueMaterial = new CGFappearance(this.scene);
-        this.blueMaterial.scene.setAmbient(0, 0, 1, 1);
-        this.blueMaterial.scene.setDiffuse(0, 0, 1, 1);
-        this.blueMaterial.scene.setSpecular(0, 0, 1, 1);
-        this.blueMaterial.scene.setShininess(10.0);
-		
-		this.yellowMaterial = new CGFappearance(this.scene);
-		this.yellowMaterial.scene.setAmbient(1,1,0,1);
-		this.yellowMaterial.scene.setDiffuse(1,1,0,1);
-		this.yellowMaterial.scene.setSpecular(1,1,0,1);
-		this.yellowMaterial.scene.setShininess(10.0);
+        this.blueMaterial.setAmbient(0, 0, 1, 1);
+        this.blueMaterial.setDiffuse(0, 0, 1, 1);
+        this.blueMaterial.setSpecular(0, 0, 1, 1);
+        this.blueMaterial.setShininess(10.0);
 
 		this.ang=angle;
 		this.coordX=x;
@@ -54,7 +48,7 @@ class MyBird extends CGFobject {
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.6,0.2);
 		this.scene.translate(0,0.8,-4);
-		this.yellowMaterial.apply();
+		this.scene.yellowMaterial.apply();
 		this.pyramid.display();
 		this.scene.popMatrix();
 

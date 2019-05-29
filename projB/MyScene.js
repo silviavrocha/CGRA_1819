@@ -60,8 +60,39 @@ class MyScene extends CGFscene {
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
 
+        		
+		this.yellowMaterial = new CGFappearance(this);
+		this.yellowMaterial.setAmbient(1,1,0,1);
+		this.yellowMaterial.setDiffuse(1,1,0,1);
+		this.yellowMaterial.setSpecular(1,1,0,1);
+        this.yellowMaterial.setShininess(10.0);
+        
         this.goDown=false;
         this.goUp=true;
+        this.drawLightning = false;
+    
+        this.axiom =  "X"; 
+        this.angle = 25.0;
+        this.iterations = 3;
+        this.scaleF = 0.5;
+        this.lightning = new MyLightning(this);
+
+        this.doGenerate = function () {
+            this.lightning.generate(
+                this.axiom,
+                {
+                    "F": ["FF"],
+                    "X": ["F[-X][X]F[-X]+FX", "FF[-F]+X[-XF]FF"]
+                },
+                this.angle,
+                this.iterations,
+                this.scaleF
+            );
+        }
+
+        // do initial generation
+        this.doGenerate();
+
     }
     
     initLights() {
@@ -109,6 +140,10 @@ class MyScene extends CGFscene {
         {
             this.goDown=true;
         }
+        if(this.gui.isKeyPressed("KeyL"))
+        {
+            this.drawLightning=true;
+        }
      }
 
     update(t){
@@ -116,7 +151,6 @@ class MyScene extends CGFscene {
             this.oldtime=t;
         
         var delta = t - this.oldtime;
-
         
         this.bird.updatePosition(delta);
         if(this.goDown)
@@ -138,6 +172,12 @@ class MyScene extends CGFscene {
         {
             this.checkKeys(t);
             this.bird.update();
+        }
+        if(this.drawLightning)
+        {
+            this.lightning.update(delta);
+            if(this.lightning.axiom.length<=this.lightning.depth)
+                this.drawLightning=false;
         }
 
        
@@ -190,11 +230,23 @@ class MyScene extends CGFscene {
         // this.rotate(-Math.PI/2, 1,0,0);
         // this.terrain.display();
         // this.popMatrix();
-    
+        this.pushMatrix(); 
         this.nest.display(); 
-
-        for(var i=0; i<this.branches.length; i++)
+        this.popMatrix();
+        
+        for(var i=0; i<this.branches.length; i++){
+            this.pushMatrix();
             this.branches[i].display();
+            this.popMatrix();
+        }
+        if(this.drawLightning)
+        {
+            this.pushMatrix();
+            this.yellowMaterial.apply();
+            this.lightning.display();
+            this.popMatrix();
+        }
+       
         // ---- END Primitive drawing section
     }
 }

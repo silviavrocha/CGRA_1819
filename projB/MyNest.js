@@ -8,19 +8,20 @@ class MyNest extends CGFobject {
         super(scene);
         
         this.yellowMaterial = new CGFappearance(this.scene);
-		this.yellowMaterial.scene.setAmbient(1,1,0,1);
-		this.yellowMaterial.scene.setDiffuse(1,1,0,1);
-		this.yellowMaterial.scene.setSpecular(1,1,0,1);
-        this.yellowMaterial.scene.setShininess(10.0);
-		
+		this.yellowMaterial.setAmbient(1,1,0,1);
+		this.yellowMaterial.setDiffuse(1,1,0,1);
+		this.yellowMaterial.setSpecular(1,1,0,1);
+        this.yellowMaterial.setShininess(10.0);
+		this.yellowMaterial.loadTexture('images/roof.jpg')
+        this.yellowMaterial.setTextureWrap('REPEAT', 'REPEAT');
 		this.numBranches=0;
 		this.coordX=5;
 		this.coordY=0.5;
 		this.coordZ=5;
 		this.branch = new MyTreeBranch(scene, 0, 0);
-		this.cube = new MyUnitCubeQuad(scene, this.yellowMaterial);
+		this.nest = new MySemisphere(scene, 10,10);
 		this.randomPositions = [];
-		for(var i=0; i< 2*scene.branches.length; i++)
+		for(var i=0; i< scene.branches.length; i++)
 		{
 			this.randomPositions[i]=Math.random();
 		}
@@ -30,13 +31,18 @@ class MyNest extends CGFobject {
 	{
 		this.scene.translate(this.coordX,this.coordY,this.coordZ);
 		
-	//	this.cube.display();
+		this.scene.pushMatrix();
+		this.scene.rotate(Math.PI/2,1,0,0);
+		this.scene.translate(0,0,-0.5);
+		this.yellowMaterial.apply();
+		this.nest.display();
+		this.scene.popMatrix();
 		
 		for(var i=0; i< this.numBranches; i++)
 		{
-			console.log(this.numBranches);
 			this.scene.pushMatrix();
-			this.scene.translate(this.randomPositions[i], 0,this.randomPositions[i+this.randomPositions.length/2]);
+			this.scene.rotate(-Math.PI/4,1,0,0);
+			this.scene.rotate(i*Math.PI/2, 0,0,1);
 			this.branch.display();	
 			this.scene.popMatrix();
 		}

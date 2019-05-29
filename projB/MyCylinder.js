@@ -32,9 +32,12 @@ class MyCylinder extends CGFobject {
         this.normals.push(caa, 0, -saa);
         this.normals.push(caa, 1, -saa);
 
-        this.indices.push(0, 2 , 1 );
+        this.indices.push(0, 2 , 1 );        
+        this.indices.push(0, 1 , 2 );
+
         this.indices.push(2, 3 , 1 );
-        
+        this.indices.push(2, 1 , 3 );
+
         this.texCoords.push(0,1);
         this.texCoords.push(0,0);
         this.texCoords.push(1/this.slices,1);
@@ -56,7 +59,10 @@ class MyCylinder extends CGFobject {
             this.normals.push(ca, 1, -sa);
 
             this.indices.push(2*i, (2*i+2) , (2*i+1));
-            this.indices.push((2*i+2), (2*i+3) , (2*i+1) );
+            this.indices.push(2*i,(2*i+1), (2*i+2));
+
+            this.indices.push((2*i+2), (2*i+3) , (2*i+1));
+            this.indices.push((2*i+2), (2*i+1), (2*i+3));
 
             this.texCoords.push((i+1)/this.slices,1);
             this.texCoords.push((i+1)/this.slices,0);
