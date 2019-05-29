@@ -12,12 +12,15 @@ class MyTerrain extends CGFobject {
 
 	this.texture1 = new CGFtexture(scene, "images/terrain.jpg");
 	this.texture2 = new CGFtexture(scene, "images/heightmap.jpg");
+	this.texture3 = new CGFtexture(scene, "images/altimetry.png");
 	this.appearance.setTexture(this.texture1);
 	this.appearance.setTextureWrap('REPEAT', 'REPEAT');
 
 	this.shader= new CGFshader(scene.gl, "shaders/terrain.vert", "shaders/terrain.frag"),
 	this.shader.setUniformsValues({ uSampler: 2 });
 	this.shader.setUniformsValues({ uSampler2: 1 });
+	this.shader.setUniformsValues({ uSampler3: 3 });
+
 
 	// shader code panels references
 	this.shadersDiv = document.getElementById("shaders");
@@ -44,10 +47,13 @@ class MyTerrain extends CGFobject {
 
 		// bind additional texture to texture unit 1
 		this.texture2.bind(1);
+		this.texture1.bind(2);
+		this.texture3.bind(3);
 	
 
 			this.scene.pushMatrix();
 			this.scene.scale(60, 60, 60);
+			this.scene.rotate(-Math.PI/2, 1,0,0);
 			this.plane.display();
 			this.scene.popMatrix();
 	}
