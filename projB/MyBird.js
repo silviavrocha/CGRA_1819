@@ -124,14 +124,13 @@ class MyBird extends CGFobject {
 	}
 
 	goDown(delta){
-		this.velocity=0;
 		this.coordY-=(delta/100000);	
 	}
 
 	checkBranch(branches, nest){
 		if(!this.drawBranch){
 			for(var i=0; i < branches.length; i++){
-					if(Math.abs(branches[i].coordX-this.coordX)< 7 && Math.abs(branches[i].coordZ-this.coordZ)<7)
+					if(Math.abs(branches[i].coordX-this.coordX)<2 && Math.abs(branches[i].coordZ-this.coordZ)<2)
 					{
 						branches.splice(i,1);
 						this.drawBranch=true;
@@ -140,7 +139,7 @@ class MyBird extends CGFobject {
 			}
 		}
 		else{
-			if(Math.abs(nest.coordX-this.coordX)< 2 && Math.abs(nest.coordZ-this.coordZ)<2)
+			if(Math.abs(nest.coordX-this.coordX)<2 && Math.abs(nest.coordZ-this.coordZ)<2)
 			{
 				this.drawBranch=false;
 				nest.drawBranches();

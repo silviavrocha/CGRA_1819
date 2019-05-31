@@ -11,7 +11,7 @@ class MyTerrain extends CGFobject {
 	this.appearance.setShininess(120);
 
 	this.texture1 = new CGFtexture(scene, "images/terrain.jpg");
-	this.texture2 = new CGFtexture(scene, "images/heightmap.jpg");
+	this.texture2 = new CGFtexture(scene, "images/heightmap.png");
 	this.texture3 = new CGFtexture(scene, "images/altimetry.png");
 	this.appearance.setTexture(this.texture1);
 	this.appearance.setTextureWrap('REPEAT', 'REPEAT');
@@ -38,7 +38,7 @@ class MyTerrain extends CGFobject {
 	display() {
 		
 		// aplly main appearance (including texture in default texture unit 0)
-
+		this.scene.pushMatrix();
 		// activate selected shader
 		this.scene.setActiveShader(this.shader);
 		this.appearance.apply();
@@ -56,5 +56,7 @@ class MyTerrain extends CGFobject {
 			this.scene.rotate(-Math.PI/2, 1,0,0);
 			this.plane.display();
 			this.scene.popMatrix();
+
+		this.scene.popMatrix();
 	}
 }

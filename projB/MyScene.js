@@ -44,14 +44,14 @@ class MyScene extends CGFscene {
         this.cubeMap = new MyCubeMap(this);
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this, 0, 10, 3, 0, 0);
+        this.bird = new MyBird(this, 0, 10, 3, 3, 0);
         this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
         this.branches=[];
         for(var i=0; i< 5; i++)
         {
-            this.branches[i]= new MyTreeBranch(this, Math.random()*5, Math.random()*5);
+            this.branches[i]= new MyTreeBranch(this, Math.random()*5-10*Math.random(), Math.random()*5+10*Math.random());
         }
         
         this.nest = new MyNest(this);
@@ -83,7 +83,7 @@ class MyScene extends CGFscene {
                 this.axiom,
                 {
                     "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX", "[-F]+X[-XF]XX"]
+                    "X": ["F[-X][X]F[-X]+FX"]//, "[-F]+X[-XF]XX"]
                 },
                 this.angle,
                 this.iterations,
@@ -168,7 +168,7 @@ class MyScene extends CGFscene {
         if(this.goDown)
         {
             this.bird.goDown(delta);
-            if(this.bird.coordY<=0)
+            if(this.bird.coordY<=3)
             {
                 this.goDown=false;
                 this.bird.checkBranch(this.branches, this.nest);
@@ -177,7 +177,7 @@ class MyScene extends CGFscene {
         }
         else if(this.goUp){
             this.bird.goDown(-delta);
-            if(this.bird.coordY>=3)
+            if(this.bird.coordY>=6)
             this.goUp=false;
         }
         else
@@ -214,13 +214,8 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         this.pushMatrix();
-        this.rotate(-0.5*Math.PI, 1, 0, 0);
-        this.scale(60, 60, 1);
-        this.plane.display();
-        this.popMatrix();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
         this.pushMatrix();
         this.translate(0.5,0.5,0.5);
@@ -232,6 +227,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.scale(1.4,1.4,1.4);
+        this.translate(5,2,5);
         this.house.display();
         this.popMatrix();
 
@@ -245,16 +241,8 @@ class MyScene extends CGFscene {
         
         for(var i=0; i<this.branches.length; i++){
             this.pushMatrix();
+            this.translate(0,3,0);
             this.branches[i].display();
-            this.popMatrix();
-        }
-        if(this.drawLightning)
-        {
-            this.pushMatrix();
-            this.rotate(-Math.PI, 0,0,1);
-            this.translate(0,-35,0);
-            this.yellowMaterial.apply();
-            this.lightning.display();
             this.popMatrix();
         }
        
@@ -288,11 +276,22 @@ class MyScene extends CGFscene {
         this.tree.display();
         this.popMatrix();
 
-                
-        this.pushMatrix();
-        this.terrain.display();
-        this.popMatrix();
+        if(this.drawLightning)
+        {
+            this.pushMatrix();
+            this.rotate(-Math.PI, 0,0,1);
+            this.translate(0,-35,0);
+            this.yellowMaterial.apply();
+            this.lightning.display();
+            this.popMatrix();
+        }
+
+        // this.pushMatrix();
+         this.terrain.display();
+        // this.popMatrix();
         
+        this.popMatrix();
+
         // ---- END Primitive drawing section
     }
 }

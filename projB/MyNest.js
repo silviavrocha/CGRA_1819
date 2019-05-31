@@ -16,7 +16,7 @@ class MyNest extends CGFobject {
         this.yellowMaterial.setTextureWrap('REPEAT', 'REPEAT');
 		this.numBranches=0;
 		this.coordX=5;
-		this.coordY=0.5;
+		this.coordY=3;
 		this.coordZ=5;
 		this.branch = new MyTreeBranch(scene, 0, 0);
 		this.nest = new MySemisphere(scene, 10,10);
