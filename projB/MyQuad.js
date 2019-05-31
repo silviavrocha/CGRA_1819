@@ -14,23 +14,22 @@ class MyQuad extends CGFobject {
 	
 	initBuffers() {
 		this.vertices = [
-			-0.5*this.scale, -0.5, 0,	//0
-			0.5*this.scale, -0.5, 0,	//1
-			-0.5*this.scale, 0.5, 0,	//2
-			0.5*this.scale, 0.5, 0,		//3
-			-0.5*this.scale, -0.5, 0,	//0
-			0.5*this.scale, -0.5, 0,	//1
-			-0.5*this.scale, 0.5, 0,	//2
-			0.5*this.scale, 0.5, 0		//3
+			0, 0, 0,	//0
+			this.scale, 0, 0,	//1
+			0, 1, 0,	//2
+			this.scale, 1, 0,		//3
+			0, 0, 0,	//0
+			this.scale, 0, 0,	//1
+			0, 1, 0,	//2
+			this.scale, 1, 0		//3
 		];
 
 		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
-			0, 2, 1,
 			1, 3, 2,
-			1, 2, 3
-
+			4, 6, 5,
+			5, 6, 7
 		];
 
 		//Facing Z positive
@@ -42,7 +41,7 @@ class MyQuad extends CGFobject {
 			0, 0, -1,
 			0, 0, -1,
 			0, 0, -1,
-			0, 0, -1,
+			0, 0, -1
 			
 		];
 		

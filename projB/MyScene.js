@@ -31,21 +31,19 @@ class MyScene extends CGFscene {
         this.cubeMapMaterial.loadTexture('images/day.png');
         this.cubeMapMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.wallMaterials = new CGFappearance(this);
-        this.wallMaterials.setAmbient(0.3, 0.3, 0.3, 1);
-        this.wallMaterials.setDiffuse(1.0, 1.0, 1.0, 1);
-        this.wallMaterials.setSpecular(1.0, 1.0, 1.0, 1);
-        this.wallMaterials.setShininess(10.0);
-        this.wallMaterials.loadTexture('images/wall.jpg');
-        this.wallMaterials.setTextureWrap('REPEAT', 'REPEAT');
-
+        this.yellowMaterial = new CGFappearance(this);
+		this.yellowMaterial.setAmbient(1,1,0,1);
+		this.yellowMaterial.setDiffuse(1,1,0,1);
+		this.yellowMaterial.setSpecular(1,1,0,1);
+        this.yellowMaterial.setShininess(10.0);
+        
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
-        this.bird = new MyBird(this, 0, 10, 3, 3, 0);
-        this.cube = new MyUnitCubeQuad(this, this.wallMaterials);
+        this.bird = new MyBird(this, 0, 10, 8, 0, 0);
+        this.cube = new MyUnitCubeQuad(this, this.yellowMaterial);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
         this.branches=[];
@@ -61,13 +59,6 @@ class MyScene extends CGFscene {
         this.scaleFactor=1.0;
         this.speedFactor=1.0;
 
-        		
-		this.yellowMaterial = new CGFappearance(this);
-		this.yellowMaterial.setAmbient(1,1,0,1);
-		this.yellowMaterial.setDiffuse(1,1,0,1);
-		this.yellowMaterial.setSpecular(1,1,0,1);
-        this.yellowMaterial.setShininess(10.0);
-        
         this.goDown=false;
         this.goUp=true;
         this.drawLightning = false;
@@ -83,7 +74,7 @@ class MyScene extends CGFscene {
                 this.axiom,
                 {
                     "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX"]//, "[-F]+X[-XF]XX"]
+                    "X": ["F[-X][X]F[-X]+FX", "F[-X][X]+X", "F[+X]-X"]
                 },
                 this.angle,
                 this.iterations,
@@ -94,7 +85,7 @@ class MyScene extends CGFscene {
                 "X",
                 {
                     "F": ["FF"],
-                    "X": [" F[-X][X]F[-X]+X", "F[-X][X]+X", "F[+X]-X", "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+                    "X": [" F[-X][X]F[-X]+X",  "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
                 },
                 30,
                 6,
@@ -124,16 +115,13 @@ class MyScene extends CGFscene {
     }
 
     checkKeys()  {
-        var text="Keys pressed: ";
-        var keysPressed=false;
-
         if (this.gui.isKeyPressed("KeyW"))
          {
-             this.bird.accelerate(2, this.speedFactor);
+             this.bird.accelerate(1.2, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.bird.accelerate(0.5, this.speedFactor);
+            this.bird.accelerate(0.8, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
@@ -146,7 +134,7 @@ class MyScene extends CGFscene {
 
         if (this.gui.isKeyPressed("KeyR"))
         {
-             this.bird = new MyBird(this, 0, 10, 3, 0, 0);
+             this.bird = new MyBird(this, 0, 10, 8, 0, 0);
         }
         if(this.gui.isKeyPressed("KeyP"))
         {
@@ -168,7 +156,7 @@ class MyScene extends CGFscene {
         if(this.goDown)
         {
             this.bird.goDown(delta);
-            if(this.bird.coordY<=3)
+            if(this.bird.coordY<=5)
             {
                 this.goDown=false;
                 this.bird.checkBranch(this.branches, this.nest);
@@ -177,8 +165,8 @@ class MyScene extends CGFscene {
         }
         else if(this.goUp){
             this.bird.goDown(-delta);
-            if(this.bird.coordY>=6)
-            this.goUp=false;
+            if(this.bird.coordY>=8)
+                this.goUp=false;
         }
         else
         {
@@ -192,6 +180,7 @@ class MyScene extends CGFscene {
                 this.drawLightning=false;
                 this.lightning.startingTime=undefined;
                 this.lightning.depth=0;
+                this.lightning.axiom= this.axiom;
             }
         }  
     }
@@ -214,8 +203,7 @@ class MyScene extends CGFscene {
         this.setDefaultAppearance();
 
         // ---- BEGIN Primitive drawing section
-        this.pushMatrix();
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+       
 
         this.pushMatrix();
         this.translate(0.5,0.5,0.5);
@@ -227,7 +215,7 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.scale(1.4,1.4,1.4);
-        this.translate(5,2,5);
+        this.translate(5,3.5,5);
         this.house.display();
         this.popMatrix();
 
@@ -241,7 +229,6 @@ class MyScene extends CGFscene {
         
         for(var i=0; i<this.branches.length; i++){
             this.pushMatrix();
-            this.translate(0,3,0);
             this.branches[i].display();
             this.popMatrix();
         }
@@ -276,22 +263,23 @@ class MyScene extends CGFscene {
         this.tree.display();
         this.popMatrix();
 
+        this.pushMatrix();
+      //  this.terrain.display();
+        this.popMatrix();
+
         if(this.drawLightning)
         {
             this.pushMatrix();
             this.rotate(-Math.PI, 0,0,1);
-            this.translate(0,-35,0);
+            this.translate(0,-10,0);
             this.yellowMaterial.apply();
             this.lightning.display();
             this.popMatrix();
         }
-
-        // this.pushMatrix();
-         this.terrain.display();
-        // this.popMatrix();
         
-        this.popMatrix();
-
+        this.translate(0,5,0);
+        this.cube.display();
+        
         // ---- END Primitive drawing section
     }
 }

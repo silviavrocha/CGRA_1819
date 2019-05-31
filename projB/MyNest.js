@@ -8,15 +8,15 @@ class MyNest extends CGFobject {
         super(scene);
         
         this.yellowMaterial = new CGFappearance(this.scene);
-		this.yellowMaterial.setAmbient(1,1,0,1);
-		this.yellowMaterial.setDiffuse(1,1,0,1);
-		this.yellowMaterial.setSpecular(1,1,0,1);
+		this.yellowMaterial.setAmbient(233/255,221/255,195/255,1);
+		this.yellowMaterial.setDiffuse(233/255,221/255,195/255,1);
+		this.yellowMaterial.setSpecular(233/255,221/255,195/255,1);
         this.yellowMaterial.setShininess(10.0);
-		this.yellowMaterial.loadTexture('images/roof.jpg')
+		this.yellowMaterial.loadTexture('images/nest.jpg')
         this.yellowMaterial.setTextureWrap('REPEAT', 'REPEAT');
 		this.numBranches=0;
 		this.coordX=5;
-		this.coordY=3;
+		this.coordY=5;
 		this.coordZ=5;
 		this.branch = new MyTreeBranch(scene, 0, 0);
 		this.nest = new MySemisphere(scene, 10,10);

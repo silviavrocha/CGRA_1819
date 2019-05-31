@@ -13,24 +13,23 @@ class MyLightning extends MyLSystem {
     // cria o lexico da gramática
     initGrammar(){
         this.grammar = {
-            "F": new MyQuad(this.scene, 0.2),
-            "X": new MyQuad(this.scene, 0.4)
+            "F": new MyQuad(this.scene, 0.3),
+            "X": new MyQuad(this.scene, 0.2)
         };
     }
 
     startAnimation(t){
         this.startingTime=t;
-        super.iterate();
+      //  super.iterate();
+        this.iterate();
         this.depth= this.axiom.length*(t-this.startingTime);
-        console.log(this.axiom.length);
-
     }
 
     update(delta){
         if(this.startingTime==undefined)
             this.startAnimation(delta);
         else
-            this.depth= this.axiom.length*((delta-this.startingTime)/1000)*0.1;
+            this.depth= this.axiom.length*((delta-this.startingTime)/1000);
             this.display();
     }
 
@@ -39,10 +38,8 @@ class MyLightning extends MyLSystem {
         this.scene.scale(this.scale, this.scale, this.scale);
 
         var i;
-
         // percorre a cadeia de caracteres
         for (i=0; i<this.depth; ++i){
-
             // verifica se sao caracteres especiais
             switch(this.axiom[i]){
                 case "+":

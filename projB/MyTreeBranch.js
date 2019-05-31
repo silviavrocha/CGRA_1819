@@ -20,7 +20,7 @@ class MyTreeBranch extends CGFobject {
 
    display()
     {
-        this.scene.translate(this.coordX, 0, this.coordZ);
+        this.scene.translate(this.coordX, 5, this.coordZ);
         this.scene.pushMatrix();
         this.scene.rotate(Math.PI/2,1,0,0);
         this.scene.scale(0.2,1.2,0.2);

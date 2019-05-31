@@ -6,14 +6,7 @@
 class MyHouse extends CGFobject {
 	constructor(scene) {
 		super(scene);
-		this.cube = new MyUnitCubeQuad(scene, scene.wallMaterials);
-		this.roof = new MyPyramid(scene, 4, 8);
-		this.column1 = new MyPrism(scene, 8, 8);
-		this.column2 = new MyPrism(scene, 8, 8);
-		this.column3 = new MyPrism(scene, 8, 8);
-		this.column4 = new MyPrism(scene, 8, 8);
-		this.door =new MyQuad(scene,1);
-
+		
 		this.doorMaterial = new CGFappearance(this.scene);
         this.doorMaterial.setAmbient(0.3, 0.3, 0.3, 1);
         this.doorMaterial.setDiffuse(1.0, 1.0, 1.0, 1);
@@ -36,7 +29,20 @@ class MyHouse extends CGFobject {
         this.colMaterials.setSpecular(0, 0, 0, 1);
         this.colMaterials.setShininess(10.0);
         this.colMaterials.loadTexture('images/columns.jpg');
-        this.colMaterials.setTextureWrap('REPEAT', 'REPEAT');
+		this.colMaterials.setTextureWrap('REPEAT', 'REPEAT');
+		
+        this.wallMaterials = new CGFappearance(this.scene);
+        this.wallMaterials.setAmbient(0.3, 0.3, 0.3, 1);
+        this.wallMaterials.setDiffuse(1.0, 1.0, 1.0, 1);
+        this.wallMaterials.setSpecular(1.0, 1.0, 1.0, 1);
+        this.wallMaterials.setShininess(10.0);
+        this.wallMaterials.loadTexture('images/wall.jpg');
+		this.wallMaterials.setTextureWrap('REPEAT', 'REPEAT');
+		
+		this.cube = new MyUnitCubeQuad(scene, this.wallMaterials);
+		this.roof = new MyPyramid(scene, 4, 8);
+		this.column = new MyPrism(scene, 8, 8);
+		this.door =new MyQuad(scene,1);
 	}
 	
 	display()
@@ -58,25 +64,25 @@ class MyHouse extends CGFobject {
 		this.scene.scale(0.2,1,0.2);
 		this.scene.translate(4,0,4);
 		this.colMaterials.apply();
-		this.column1.display();
+		this.column.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(0.2,1,0.2);
 		this.scene.translate(-4,0,4);
-		this.column2.display();
+		this.column.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(0.2,1,0.2);
 		this.scene.translate(-4,0,-4);
-		this.column3.display();
+		this.column.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(0.2,1,0.2);
 		this.scene.translate(4,0,-4);
-		this.column4.display();
+		this.column.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
