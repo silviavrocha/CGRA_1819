@@ -24,7 +24,6 @@ class MyQuad extends CGFobject {
 			this.scale, 1, 0		//3
 		];
 
-		//Counter-clockwise reference of vertices
 		this.indices = [
 			0, 1, 2,
 			1, 3, 2,
@@ -32,7 +31,6 @@ class MyQuad extends CGFobject {
 			5, 6, 7
 		];
 
-		//Facing Z positive
 		this.normals = [
 			0, 0, 1,
 			0, 0, 1,
@@ -46,6 +44,10 @@ class MyQuad extends CGFobject {
 		];
 		
 		this.texCoords = [
+			0, 1,
+			1, 1,
+			0, 0,
+			1, 0,
 			0, 1,
 			1, 1,
 			0, 0,

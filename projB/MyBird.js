@@ -11,7 +11,19 @@ class MyBird extends CGFobject {
         this.blueMaterial.setAmbient(0, 0, 1, 1);
         this.blueMaterial.setDiffuse(0, 0, 1, 1);
         this.blueMaterial.setSpecular(0, 0, 1, 1);
-        this.blueMaterial.setShininess(10.0);
+		this.blueMaterial.setShininess(10.0);
+
+		this.yellowMaterial = new CGFappearance(this.scene);
+        this.yellowMaterial.setAmbient(1, 1, 0, 1);
+        this.yellowMaterial.setDiffuse(1, 1, 0, 1);
+        this.yellowMaterial.setSpecular(1, 1, 0, 1);
+		this.yellowMaterial.setShininess(10.0);
+
+		this.blackMaterial = new CGFappearance(this.scene);
+		this.blackMaterial.setAmbient(0, 0, 0, 1);
+        this.blackMaterial.setDiffuse(0, 0, 0, 1);
+        this.blackMaterial.setSpecular(0, 0, 0, 1);
+		this.blackMaterial.setShininess(10.0);
 
 		this.ang=angle;
 		this.coordX=x;
@@ -66,23 +78,38 @@ class MyBird extends CGFobject {
 		this.scene.rotate(Math.PI/2,1,0,0);
 		this.scene.scale(0.2,0.6,0.2);
 		this.scene.translate(0,1.5,-4);
-		this.scene.yellowMaterial.apply();
+		this.yellowMaterial.apply();
 		this.pyramid.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
-		this.scene.scale(0.1,0.1,0.1);
-		this.scene.translate(-4.5,15,7);
+		this.scene.translate(-0.3,1.4,0.8);
+		this.scene.scale(0.2,0.2,0.2);
+		this.scene.whiteMaterial.apply();
+		this.semisphere.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.scene.translate(0.3,1.4,0.8);
+		this.scene.scale(0.2,0.2,0.2);
 		this.semisphere.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
 		this.scene.scale(0.1,0.1,0.1);
-		this.scene.translate(4.5, 15,7);
+		this.scene.translate(-3.6,14.25,10);
+		this.blackMaterial.apply();
 		this.semisphere.display();
 		this.scene.popMatrix();
 
 		this.scene.pushMatrix();
+		this.scene.scale(0.1,0.1,0.1);
+		this.scene.translate(3.6, 14.25,10);
+		this.semisphere.display();
+		this.scene.popMatrix();
+
+		this.scene.pushMatrix();
+		this.yellowMaterial.apply();
 
 		this.scene.rotate(Math.sin(this.quadAng)*0.3,0,0,1);
 
@@ -138,6 +165,7 @@ class MyBird extends CGFobject {
 		this.coordX+=distance*Math.sin(this.ang);
 		this.coordZ+=distance*Math.cos(this.ang);
 
+		this.coordY+=Math.sin((delta/1000))*0.1;
 		this.quadAng+=(delta/1000)*this.velocity;
 	}
 	accelerate(v, speedFactor)
@@ -170,35 +198,5 @@ class MyBird extends CGFobject {
 				nest.drawBranches();
 			}
 		}			
-	}
-
-	update()
-	{
-		var offset1=0.0;
-		offset1=1/30;
-		if(this.numUpdatesUp==100)
-		{
-			this.numUpdatesUp=0;
-			this.numUpdatesDown=1;
-			this.coordY+=(-offset1);
-		}
-		else if(this.numUpdatesUp!=0)
-		{			
-			this.coordY+=offset1;
-			this.numUpdatesUp+=1;
-		}
-
-
-		if(this.numUpdatesDown==100)
-		{
-			this.numUpdatesDown=0;
-			this.numUpdatesUp=1;
-			this.coordY+=offset1;
-		}
-		else if(this.numUpdatesDown!=0)
-		{			
-			this.coordY-=offset1;
-			this.numUpdatesDown+=1;
-		}
 	}
 }

@@ -19,7 +19,7 @@ class MyScene extends CGFscene {
         this.gl.enable(this.gl.CULL_FACE);
         this.gl.depthFunc(this.gl.LEQUAL);
         this.enableTextures(true);
-        this.setUpdatePeriod(60);
+        this.setUpdatePeriod(30);
 
         //Initialize materials
 
@@ -31,11 +31,11 @@ class MyScene extends CGFscene {
         this.cubeMapMaterial.loadTexture('images/day.png');
         this.cubeMapMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
-        this.yellowMaterial = new CGFappearance(this);
-		this.yellowMaterial.setAmbient(1,1,0,1);
-		this.yellowMaterial.setDiffuse(1,1,0,1);
-		this.yellowMaterial.setSpecular(1,1,0,1);
-        this.yellowMaterial.setShininess(10.0);
+        this.whiteMaterial = new CGFappearance(this);
+		this.whiteMaterial.setAmbient(1,1,1,1);
+		this.whiteMaterial.setDiffuse(1,1,1,1);
+		this.whiteMaterial.setSpecular(1,1,1,1);
+        this.whiteMaterial.setShininess(10.0);
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -43,13 +43,12 @@ class MyScene extends CGFscene {
         this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 10, 8, 0, 0);
-        this.cube = new MyUnitCubeQuad(this, this.yellowMaterial);
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
         this.branches=[];
         for(var i=0; i< 5; i++)
         {
-            this.branches[i]= new MyTreeBranch(this, Math.random()*5-10*Math.random(), Math.random()*5+10*Math.random());
+            this.branches[i]= new MyTreeBranch(this, 5*Math.random()- 10*Math.random(), Math.random()*10 + Math.random()*10);
         }
         
         this.nest = new MyNest(this);
@@ -74,7 +73,7 @@ class MyScene extends CGFscene {
                 this.axiom,
                 {
                     "F": ["FF"],
-                    "X": ["F[-X][X]F[-X]+FX", "F[-X][X]+X", "F[+X]-X"]
+                    "X": ["F[-X][X]F[-X]+FX", "F[-X][X]+X", "F[+X]-XXXF"]
                 },
                 this.angle,
                 this.iterations,
@@ -152,7 +151,9 @@ class MyScene extends CGFscene {
         
         var delta = t - this.oldtime;
         
-        this.bird.updatePosition(delta);
+        this.bird.updatePosition(delta);            
+        this.checkKeys();
+
         if(this.goDown)
         {
             this.bird.goDown(delta);
@@ -168,11 +169,7 @@ class MyScene extends CGFscene {
             if(this.bird.coordY>=8)
                 this.goUp=false;
         }
-        else
-        {
-            this.checkKeys(t);
-            this.bird.update();
-        }
+
         if(this.drawLightning)
         {
             this.lightning.update(delta);
@@ -234,52 +231,48 @@ class MyScene extends CGFscene {
         }
        
         this.pushMatrix();
-        this.translate(-9,0,-7);
+        this.translate(-9,3.5,-7);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-9,0,-10);
+        this.translate(-9,3.5,-6);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-9,0,-13);
+        this.translate(-12,3.5,-5);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-15,0,-7);
+        this.translate(-11,3.5,-7);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-15,0,-10);
+        this.translate(-13,3.5,-10);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-15,0,-13);
+        this.translate(-15,3.5,-8);
         this.tree.display();
         this.popMatrix();
 
         this.pushMatrix();
-      //  this.terrain.display();
+        this.terrain.display();
         this.popMatrix();
 
         if(this.drawLightning)
         {
             this.pushMatrix();
             this.rotate(-Math.PI, 0,0,1);
-            this.translate(0,-10,0);
-            this.yellowMaterial.apply();
+            this.translate(0,-15,0);
+            this.whiteMaterial.apply();
             this.lightning.display();
             this.popMatrix();
-        }
-        
-        this.translate(0,5,0);
-        this.cube.display();
-        
+        }        
         // ---- END Primitive drawing section
     }
 }
