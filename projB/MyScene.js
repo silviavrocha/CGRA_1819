@@ -36,6 +36,8 @@ class MyScene extends CGFscene {
 		this.whiteMaterial.setDiffuse(1,1,1,1);
 		this.whiteMaterial.setSpecular(1,1,1,1);
         this.whiteMaterial.setShininess(10.0);
+        this.whiteMaterial.loadTexture('images/blue.jpg');
+        this.whiteMaterial.setTextureWrap('REPEAT','REPEAT');
         
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -119,19 +121,19 @@ class MyScene extends CGFscene {
     checkKeys()  {
         if (this.gui.isKeyPressed("KeyW"))
          {
-             this.bird.accelerate(1.2, this.speedFactor);
+             this.bird.accelerate(0.8, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.bird.accelerate(0.8, this.speedFactor);
+            this.bird.accelerate(0.3, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
-            this.bird.turn(-0.2, this.speedFactor);
+            this.bird.turn(0.2, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyD"))
         {
-             this.bird.turn(0.2, this.speedFactor);
+             this.bird.turn(-0.2, this.speedFactor);
         }
 
         if (this.gui.isKeyPressed("KeyR"))
@@ -197,7 +199,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        this.axis.display();
+        //this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
@@ -220,6 +222,8 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
+        this.translate(this.bird.coordX,this.bird.coordY,this.bird.coordZ);
+        this.scale(0.7,0.7,0.7);
         this.bird.display();
         this.popMatrix();
 
@@ -272,7 +276,8 @@ class MyScene extends CGFscene {
         {
             this.pushMatrix();
             this.rotate(-Math.PI, 0,0,1);
-            this.translate(0,-15,0);
+            this.scale(1.5,1.5,1.5);
+            this.translate(0,-30,0);
             this.whiteMaterial.apply();
             this.lightning.display();
             this.popMatrix();

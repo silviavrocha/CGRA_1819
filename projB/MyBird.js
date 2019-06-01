@@ -141,7 +141,7 @@ class MyBird extends CGFobject {
 		this.scene.rotate(Math.PI,0,0,1);
 		this.triangle.display();
 		this.scene.popMatrix();
-
+		
 		this.scene.popMatrix();
 
 		if(this.drawBranch){
