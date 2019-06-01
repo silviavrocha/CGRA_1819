@@ -46,10 +46,13 @@ class MyScene extends CGFscene {
         this.terrain = new MyTerrain(this)
         this.prism = new MyPrism(this,10,20);
         this.branches=[];
+        this.rotations = [];
         for(var i=0; i< 5; i++)
         {
-            this.branches[i]= new MyTreeBranch(this, 5*Math.random()- 10*Math.random(), Math.random()*10 + Math.random()*10);
+            this.branches[i]= new MyTreeBranch(this, -4*Math.random()+5, Math.random()*5+5);
+            this.rotations[i]=Math.random()*(-Math.PI/2) + Math.PI/2;
         }
+
         
         this.nest = new MyNest(this);
         this.tree = new MyLSPlant(this);
@@ -226,6 +229,7 @@ class MyScene extends CGFscene {
         
         for(var i=0; i<this.branches.length; i++){
             this.pushMatrix();
+            this.rotate(this.rotations[i], 0,1,0);
             this.branches[i].display();
             this.popMatrix();
         }
