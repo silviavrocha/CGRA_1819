@@ -17,7 +17,7 @@ class MyNest extends CGFobject {
 		this.numBranches=0;
 		this.coordX=-3;
 		this.coordY=6;
-		this.coordZ=15;
+		this.coordZ=18;
 		this.branch = new MyTreeBranch(scene, 0,0,0);
 		this.nest = new MySemisphere(scene, 10,10);
 		this.randomPositions = [];

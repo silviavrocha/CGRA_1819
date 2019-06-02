@@ -130,7 +130,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 45), vec3.fromValues(10, 5, 2));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-50, 50, 30), vec3.fromValues(0, 5, 0));
     }
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -290,8 +290,8 @@ class MyScene extends CGFscene {
         this.terrain.display();
         this.popMatrix();
 
-        if(this.drawLightning)
-        {
+     //   if(this.drawLightning)
+       // {
             this.pushMatrix();
             this.rotate(-Math.PI, 0,0,1);
             this.scale(1.5,1.5,1.5);
@@ -299,7 +299,7 @@ class MyScene extends CGFscene {
             this.whiteMaterial.apply();
             this.lightning.display();
             this.popMatrix();
-        }        
+        //}        
         // ---- END Primitive drawing section
     }
 }

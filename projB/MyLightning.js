@@ -18,10 +18,10 @@ class MyLightning extends MyLSystem {
         };
     }
 
-    startAnimation(delta){
-        this.startingTime=delta;
+    startAnimation(t){
+        this.startingTime=t;
         this.iterate();
-        this.depth= this.axiom.length*(delta-this.startingTime);
+        this.depth= this.axiom.length*(t-this.startingTime);
     }
 
     update(t){
