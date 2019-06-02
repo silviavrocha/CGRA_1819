@@ -56,6 +56,8 @@ class MyScene extends CGFscene {
         
         this.nest = new MyNest(this);
         this.tree = new MyLSPlant(this);
+        this.tree1 = new MyLSPlant(this);
+        this.tree2 = new MyLSPlant(this);
 
         //Objects connected to MyInterface
         this.scaleFactor=1.0;
@@ -91,7 +93,29 @@ class MyScene extends CGFscene {
                 },
                 30,
                 4,
-                0.6
+                0.7
+            );
+
+            this.tree1.generate(
+                "X",
+                {
+                    "F": ["FF"],
+                    "X": [" F[-X][X]F[-X]+X",  "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+                },
+                30,
+                5,
+                0.55
+            );
+
+            this.tree2.generate(
+                "X",
+                {
+                    "F": ["FF"],
+                    "X": [" F[-X][X]F[-X]+X",  "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
+                },
+                30,
+                4,
+                0.65
             );
         }
 
@@ -240,12 +264,12 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
         this.translate(-9,3.5,-6);
-        this.tree.display();
+        this.tree1.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-12,3.5,-5);
-        this.tree.display();
+        this.tree2.display();
         this.popMatrix();
 
         this.pushMatrix();
@@ -254,13 +278,13 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(-13,3.5,-10);
-        this.tree.display();
+        this.translate(-13,3.5,-1);
+        this.tree1.display();
         this.popMatrix();
 
         this.pushMatrix();
         this.translate(-15,3.5,-8);
-        this.tree.display();
+        this.tree2.display();
         this.popMatrix();
 
         this.pushMatrix();
