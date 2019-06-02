@@ -89,7 +89,7 @@ class MyHouse extends CGFobject {
 		this.scene.rotate(Math.PI,1,0,0);
 		this.scene.rotate(Math.PI,0,0,1);
 		this.scene.scale(0.5,0.8,1);
-		this.scene.translate(0,0.5,0.51);
+		this.scene.translate(-0.5,0,0.51);
 		this.doorMaterial.apply();
 		this.door.display();
 		this.scene.popMatrix();

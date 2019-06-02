@@ -164,12 +164,12 @@ class MyBird extends CGFobject {
 		this.ang += speedFactor*w;
 	}
 
-	updatePosition(delta){
+	updatePosition(t,delta){
 		var distance =this.velocity*(delta/1000);
 		this.coordX+=distance*Math.sin(this.ang);
 		this.coordZ+=distance*Math.cos(this.ang);
 
-		this.coordY+=Math.sin((delta/1000))*0.05;
+		this.coordY+=Math.sin((t/1000))*0.05;
 		this.quadAng+=(delta/1000)*this.velocity;
 	}
 	accelerate(v, speedFactor)
@@ -178,11 +178,10 @@ class MyBird extends CGFobject {
 			this.velocity *= v * speedFactor;
 		else
 			this.velocity=0.05;
-		console.log(this.velocity);
 	}
 
 	goDown(delta){
-		this.coordY-=(delta/(1000*50));	
+		this.coordY-=(delta/100);	
 	}
 
 	checkBranch(branches, nest){

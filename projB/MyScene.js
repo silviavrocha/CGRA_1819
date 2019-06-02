@@ -42,7 +42,6 @@ class MyScene extends CGFscene {
         //Initialize scene objects
         this.axis = new CGFaxis(this);
         this.cubeMap = new MyCubeMap(this);
-        this.plane = new Plane(this, 32);
         this.house = new MyHouse(this);
         this.bird = new MyBird(this, 0, 10, 8, 0, 0);
         this.terrain = new MyTerrain(this)
@@ -177,8 +176,8 @@ class MyScene extends CGFscene {
             this.oldtime=t;
         
         var delta = t - this.oldtime;
-        
-        this.bird.updatePosition(delta);            
+        this.oldtime=t;
+        this.bird.updatePosition(t, delta);            
         this.checkKeys();
 
         if(this.goDown)
@@ -199,7 +198,7 @@ class MyScene extends CGFscene {
 
         if(this.drawLightning)
         {
-            this.lightning.update(delta);
+            this.lightning.update(t);
             if(this.lightning.axiom.length<=this.lightning.depth){
                 this.drawLightning=false;
                 this.lightning.startingTime=undefined;

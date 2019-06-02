@@ -18,18 +18,17 @@ class MyLightning extends MyLSystem {
         };
     }
 
-    startAnimation(t){
-        this.startingTime=t;
-      //  super.iterate();
+    startAnimation(delta){
+        this.startingTime=delta;
         this.iterate();
-        this.depth= this.axiom.length*(t-this.startingTime);
+        this.depth= this.axiom.length*(delta-this.startingTime);
     }
 
-    update(delta){
+    update(t){
         if(this.startingTime==undefined)
-            this.startAnimation(delta);
+            this.startAnimation(t);
         else
-            this.depth= this.axiom.length*((delta-this.startingTime)/1000);
+            this.depth= this.axiom.length*((t-this.startingTime)/1000);
             this.display();
     }
 
