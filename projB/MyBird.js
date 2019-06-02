@@ -38,7 +38,7 @@ class MyBird extends CGFobject {
 		this.pyramid = new MyPyramid(scene, 4, 1);
 		this.quad= new MyQuad(scene,1);
 		this.triangle = new MyTriangle(scene);
-		this.branch= new MyTreeBranch(scene,5, 5);
+		this.branch= new MyTreeBranch(scene,5, 5,0);
 		this.semisphere = new MySemisphere(scene, 8, 8);
 	}
 	
@@ -150,7 +150,7 @@ class MyBird extends CGFobject {
 
 		if(this.drawBranch){
 			this.scene.pushMatrix();
-			this.scene.translate(-5.55,-4,6.5);
+			this.scene.translate(-5.55,-4.5,5.8);
 			this.scene.rotate(Math.PI/2, 0,1,0);
 			this.branch.display();
 			this.scene.popMatrix();
@@ -169,7 +169,7 @@ class MyBird extends CGFobject {
 		this.coordX+=distance*Math.sin(this.ang);
 		this.coordZ+=distance*Math.cos(this.ang);
 
-		this.coordY+=Math.sin((delta/1000))*0.1;
+		this.coordY+=Math.sin((delta/1000))*0.05;
 		this.quadAng+=(delta/1000)*this.velocity;
 	}
 	accelerate(v, speedFactor)
@@ -178,10 +178,11 @@ class MyBird extends CGFobject {
 			this.velocity *= v * speedFactor;
 		else
 			this.velocity=0.05;
+		console.log(this.velocity);
 	}
 
 	goDown(delta){
-		this.coordY-=(delta/10000);	
+		this.coordY-=(delta/(1000*50));	
 	}
 
 	checkBranch(branches, nest){
