@@ -40,9 +40,9 @@ class MyNest extends CGFobject {
 		for(var i=0; i< this.numBranches; i++)
 		{
 			this.scene.pushMatrix();
+			this.scene.rotate(i*Math.PI/2, 0,0,1);
 			this.scene.translate(0,-4,3.5);
 			this.scene.rotate(-Math.PI/4,1,0,0);
-			this.scene.rotate(i*Math.PI/2, 0,0,1);
 			this.branch.display();	
 			this.scene.popMatrix();
 		}
