@@ -121,11 +121,11 @@ class MyScene extends CGFscene {
     checkKeys()  {
         if (this.gui.isKeyPressed("KeyW"))
          {
-             this.bird.accelerate(0.8, this.speedFactor);
+             this.bird.accelerate(1.2, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.bird.accelerate(0.3, this.speedFactor);
+            this.bird.accelerate(0.8, this.speedFactor);
         }
         if (this.gui.isKeyPressed("KeyA"))
         {
@@ -222,8 +222,6 @@ class MyScene extends CGFscene {
         this.popMatrix();
 
         this.pushMatrix();
-        this.translate(this.bird.coordX,this.bird.coordY,this.bird.coordZ);
-        this.scale(0.7,0.7,0.7);
         this.bird.display();
         this.popMatrix();
 
