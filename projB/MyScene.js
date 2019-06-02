@@ -51,7 +51,7 @@ class MyScene extends CGFscene {
         this.rotations = [];
         for(var i=0; i< 5; i++)
         {
-            this.branches[i]= new MyTreeBranch(this, -4*Math.random()+5, Math.random()*5+5);
+            this.branches[i]= new MyTreeBranch(this, Math.random()*7 + 5, Math.random()*7 + 5);
             this.rotations[i]=Math.random()*(-Math.PI/2) + Math.PI/2;
         }
 
@@ -92,7 +92,7 @@ class MyScene extends CGFscene {
                     "X": [" F[-X][X]F[-X]+X",  "F[/X][X]F[\\X]+X", "F[\X][X]/X", "F[/X]\X", "F[^X][X]F[&X]^X", "F[^X]&X", "F[&X]^X"]
                 },
                 30,
-                6,
+                4,
                 0.6
             );
         }
@@ -199,7 +199,7 @@ class MyScene extends CGFscene {
         this.applyViewMatrix();
 
         // Draw axis
-        //this.axis.display();
+        this.axis.display();
 
         //Apply default appearance
         this.setDefaultAppearance();
